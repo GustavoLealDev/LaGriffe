@@ -1,4 +1,4 @@
-namespace LaGrife.Models
+namespace LaGrife.Models.ViewModels
 {
     public class ErrorViewModel
     {
