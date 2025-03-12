@@ -1,0 +1,41 @@
+﻿@model IEnumerable<LaGrife.Models.Loja>
+
+@{
+    ViewData["Title"] = "Lojas";
+}
+
+<h1>Lojas Físicas</h1>
+
+<p>
+    <a asp-action="Cadastrar">Cadastrar nova Loja</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Local)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Local)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Editar", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Detalhes", "Detalhes", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Deletar", "Deletar", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
