@@ -23,7 +23,7 @@ namespace LaGrife.Controllers
             return View(await _context.Loja.ToListAsync());
         }
 
-        public async Task<IActionResult> Detalhes(int? id)
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
@@ -39,7 +39,7 @@ namespace LaGrife.Controllers
 
             return View(loja);
         }
-        public IActionResult Cadastro()
+        public IActionResult Create()
         {
             return View();
         }
@@ -58,7 +58,7 @@ namespace LaGrife.Controllers
         }
 
         // GET: Lojas/Edit/5
-        public async Task<IActionResult> Editar(int? id)
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
@@ -75,7 +75,7 @@ namespace LaGrife.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Editar(int id, [Bind("Id,Local")] Loja loja)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Local")] Loja loja)
         {
             if (id != loja.Id)
             {
@@ -106,7 +106,7 @@ namespace LaGrife.Controllers
         }
 
         // GET: Lojas/Delete/5
-        public async Task<IActionResult> Deletar(int? id)
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
@@ -124,7 +124,7 @@ namespace LaGrife.Controllers
         }
 
         // POST: Lojas/Delete/5
-        [HttpPost, ActionName("Deletar")]
+        [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
