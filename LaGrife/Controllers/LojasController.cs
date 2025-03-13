@@ -1,15 +1,146 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using LaGrife.Models;
 
 namespace LaGrife.Controllers
 {
     public class LojasController : Controller
     {
-        public IActionResult Index()
+        private readonly LaGrifeContext _context;
+
+        public LojasController(LaGrifeContext context)
         {
-            List<Loja> list = new List<Loja>();
-            list.Add(new Loja { Id = 1, Local = "Av. Dr. Eugênio Borges, 1737 - Arsenal "});
-            return View(list);
+            _context = context;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            return View(await _context.Loja.ToListAsync());
+        }
+
+        public async Task<IActionResult> Detalhes(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var loja = await _context.Loja
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (loja == null)
+            {
+                return NotFound();
+            }
+
+            return View(loja);
+        }
+        public IActionResult Cadastro()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("Id,Local")] Loja loja)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(loja);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(loja);
+        }
+
+        // GET: Lojas/Edit/5
+        public async Task<IActionResult> Editar(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var loja = await _context.Loja.FindAsync(id);
+            if (loja == null)
+            {
+                return NotFound();
+            }
+            return View(loja);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Editar(int id, [Bind("Id,Local")] Loja loja)
+        {
+            if (id != loja.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(loja);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!LojaExists(loja.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View(loja);
+        }
+
+        // GET: Lojas/Delete/5
+        public async Task<IActionResult> Deletar(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var loja = await _context.Loja
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (loja == null)
+            {
+                return NotFound();
+            }
+
+            return View(loja);
+        }
+
+        // POST: Lojas/Delete/5
+        [HttpPost, ActionName("Deletar")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var loja = await _context.Loja.FindAsync(id);
+            if (loja != null)
+            {
+                _context.Loja.Remove(loja);
+            }
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
+        private bool LojaExists(int id)
+        {
+            return _context.Loja.Any(e => e.Id == id);
         }
     }
 }

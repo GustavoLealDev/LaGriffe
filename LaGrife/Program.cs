@@ -1,4 +1,9 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using LaGrife.Models;
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<LaGrifeContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("LaGrifeContext") ?? throw new InvalidOperationException("Connection string 'LaGrifeContext' not found.")));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
