@@ -1,2 +1,2 @@
 # LaGrife
-Gerenciamento de Vendas | LaGrife
+Gerenciamento de Vendas | LaGriffe Multimarcas
