@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using LaGrife.Models;
 using System.Configuration;
+using LaGrife.Models.Entities;
 
 
 var builder = WebApplication.CreateBuilder(args);

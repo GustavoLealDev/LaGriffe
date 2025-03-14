@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using LaGrife.Models;
+using LaGrife.Models.Entities;
 
 namespace LaGrife.Controllers
 {
@@ -46,7 +46,7 @@ namespace LaGrife.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Local")] Loja loja)
+        public async Task<IActionResult> Create([Bind("Id,Local")] LaGrife.Models.Entities.Loja loja)
         {
             if (ModelState.IsValid)
             {
@@ -75,7 +75,7 @@ namespace LaGrife.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Local")] Loja loja)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Local")] LaGrife.Models.Entities.Loja loja)
         {
             if (id != loja.Id)
             {
