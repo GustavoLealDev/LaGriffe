@@ -21,7 +21,6 @@
             Aniversario = aniversario;
             Loja = loja;
         }
-
         public void AddVendas(Vendas vendas)
         {
             Vendas.Add(vendas);
