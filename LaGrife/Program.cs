@@ -1,9 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using LaGrife.Models;
-using System.Configuration;
 using LaGrife.Models.Entities;
 using LaGrife.Data;
+using LaGrife.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +13,8 @@ builder.Services.AddDbContext<LaGrifeContext>(options =>
 ));
 
 builder.Services.AddScoped<SeedingService>();
+
+builder.Services.AddScoped<VendedorService>();
 
 builder.Services.AddControllersWithViews();
 
