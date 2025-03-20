@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using LaGrife.Models.Entities;
-using LaGrife.Data;
 using LaGrife.Services;
 
 var builder = WebApplication.CreateBuilder(args);

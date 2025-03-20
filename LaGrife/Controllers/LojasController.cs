@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using LaGrife.Models.Entities;
 
@@ -57,7 +52,6 @@ namespace LaGrife.Controllers
             return View(loja);
         }
 
-        // GET: Lojas/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -104,8 +98,6 @@ namespace LaGrife.Controllers
             }
             return View(loja);
         }
-
-        // GET: Lojas/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -123,7 +115,6 @@ namespace LaGrife.Controllers
             return View(loja);
         }
 
-        // POST: Lojas/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

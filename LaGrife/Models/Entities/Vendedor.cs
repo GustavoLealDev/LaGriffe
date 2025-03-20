@@ -7,19 +7,19 @@
         public string Email { get; set; }
         public DateTime Aniversario { get; set; }
         public Loja Loja { get; set; }
+        public int LojaId { get; set; }
         public ICollection<Vendas> Vendas { get; set; } = new List<Vendas>();
 
         public Vendedor()
         {
         }
 
-        public Vendedor(int id, string nome, string email, DateTime aniversario, Loja loja)
+        public Vendedor(int id, string nome, string email, DateTime aniversario)
         {
             Id = id;
             Nome = nome;
             Email = email;
             Aniversario = aniversario;
-            Loja = loja;
         }
         public void AddVendas(Vendas vendas)
         {
