@@ -1,4 +1,5 @@
 ﻿using LaGrife.Models.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace LaGrife.Services
 {
@@ -18,13 +19,14 @@ namespace LaGrife.Services
         
         public void Insert(Vendedor obj)
         {
+            obj.Loja = _context.Loja.First();
             _context.Add(obj);
             _context.SaveChanges();
         }
 
         public Vendedor FindById(int id)
         {
-            return _context.Vendedor.FirstOrDefault(obj => obj.Id == id);
+            return _context.Vendedor.Include(obj => obj.Loja).FirstOrDefault(obj => obj.Id == id);
         }
         public void Remove(int id)
         {

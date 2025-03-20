@@ -1,0 +1,47 @@
+﻿@model LaGrife.Models.Entities.Vendedor
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1 class="text-center mb-4">Detalhes da Loja</h1>
+
+<div class="row justify-content-center">
+    <div class="col-md-6 ">
+        <div class="card p-4 shadow-sm">
+            <h4 class="text-center mb-3">Informações da Loja</h4>
+            <hr />
+            <dl class="row">
+                <dt class="col-sm-4 fw-bold">
+                    @Html.DisplayNameFor(model => model.Nome)
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.Nome)
+                </dd>
+                <dt class="col-sm-4 fw-bold">
+                    @Html.DisplayNameFor(model => model.Email)
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.Email)
+                </dd>
+                <dt class="col-sm-4 fw-bold">
+                    @Html.DisplayNameFor(model => model.Aniversario)
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.Aniversario)
+                </dd>
+                <dt class="col-sm-4 fw-bold">
+                    @Html.DisplayNameFor(model => model.Loja)
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.Loja.Local)
+                </dd>
+            </dl>
+        </div>
+    </div>
+</div>
+
+<div class="text-center mt-4">
+    <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-primary btn-lg">Editar</a>
+    <a asp-action="Index" class="btn btn-secondary btn-lg">Voltar para a lista</a>
+</div>
