@@ -1,7 +1,7 @@
 ﻿@model LaGrife.Models.ViewModels.VendedorFormViewModel
 
 @{
-    ViewData["Title"] = "Cadastrar Vendedor";
+    ViewData["Title"] = "Editar dados do vendedor";
 }
 
 <h1 class="text-center mb-4">@ViewData["Title"]</h1>
@@ -9,7 +9,8 @@
 <hr />
 <div class="row justify-content-center">
     <div class="col-md-6">
-        <form asp-action="Create">
+        <form asp-action="Edit">
+            <input type="hidden" asp-for="vendedor.Id" />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group mb-3">
                 <label asp-for="vendedor.Nome" class="form-label fw-bold"></label>
@@ -30,9 +31,8 @@
                 <label asp-for="vendedor.LojaId" class="control-label"></label>
                 <select asp-for="vendedor.LojaId" asp-items="@(new SelectList(Model.Lojas,"Id","Local"))" class="form-control"></select>
             </div>
-
             <div class="form-group text-center">
-                <input type="submit" value="Cadastrar" class="btn btn-success btn-lg" />
+                <input type="submit" value="Salvar" class="btn btn-success btn-lg" />
                 <a asp-action="Index" class="btn btn-secondary btn-lg">Voltar para a lista</a>
             </div>
         </form>

@@ -85,14 +85,16 @@ namespace LaGrife.Controllers
             {
                 return NotFound();
             }
-            return View(obj);
-        }
 
+            List<Loja> Lojas = _lojasService.FindAll();
+            VendedorFormViewModel viewModel = new VendedorFormViewModel { vendedor = obj, Lojas = Lojas };
+            return View(viewModel);
+        }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Edit(int id, Vendedor vendedor)
         {
-            if (id != vendedor.Id)
+            if(id != vendedor.Id)
             {
                 return BadRequest();
             }
@@ -105,10 +107,11 @@ namespace LaGrife.Controllers
             {
                 return NotFound();
             }
-            catch (DBConcurrencyException)
+            catch (DbConcurrencyExceptions)
             {
                 return BadRequest();
             }
         }
+
     }
 }
