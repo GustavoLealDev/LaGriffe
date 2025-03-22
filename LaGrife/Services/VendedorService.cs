@@ -19,7 +19,6 @@ namespace LaGrife.Services
         
         public void Insert(Vendedor obj)
         {
-            obj.Loja = _context.Loja.First();
             _context.Add(obj);
             _context.SaveChanges();
         }
@@ -32,6 +31,16 @@ namespace LaGrife.Services
         {
             var obj = _context.Vendedor.Find(id);
             _context.Vendedor.Remove(obj);
+            _context.SaveChanges();
+        }
+
+        public void Update(Vendedor obj)
+        {
+            if(_context.Vendedor.Any(x => x.Id == obj.Id))
+            {
+                throw new Exception("Nenhum vendedor encontrado");
+            }
+            _context.Update(obj);
             _context.SaveChanges();
         }
     }
