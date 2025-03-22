@@ -36,7 +36,7 @@ namespace LaGrife.Services
 
         public void Update(Vendedor obj)
         {
-            if(_context.Vendedor.Any(x => x.Id == obj.Id))
+            if(!_context.Vendedor.Any(x => x.Id == obj.Id))
             {
                 throw new Exception("Nenhum vendedor encontrado");
             }
