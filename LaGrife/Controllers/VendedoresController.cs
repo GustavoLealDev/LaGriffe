@@ -4,6 +4,7 @@ using LaGrife.Models.Entities;
 using System.Data;
 using LaGrife.Services.Exceptions;
 using LaGrife.Models.ViewModels;
+using System.Diagnostics;
 
 namespace LaGrife.Controllers
 {
@@ -42,12 +43,12 @@ namespace LaGrife.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { mensagem = "Digite um ID valido!!"});
             }
             var obj = _vendedoresService.FindById(id.Value);
             if (obj == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { mensagem = "ID não encontrado!!" });
             }
             return View(obj);
         }
@@ -64,12 +65,12 @@ namespace LaGrife.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { mensagem = "Digite um ID valido!!" });
             }
             var obj = _vendedoresService.FindById(id.Value);
             if (obj == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { mensagem = "ID não encontrado!!" });
             }
             return View(obj);
         }
@@ -78,12 +79,12 @@ namespace LaGrife.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { mensagem = "Digite um ID valido!!" });
             }
             var obj = _vendedoresService.FindById(id.Value);
             if (obj == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { mensagem = "ID não encontrado!!" });
             }
 
             List<Loja> Lojas = _lojasService.FindAll();
@@ -96,21 +97,27 @@ namespace LaGrife.Controllers
         {
             if(id != vendedor.Id)
             {
-                return BadRequest();
+                return RedirectToAction(nameof(Error), new { mensagem = " O do vendedor não é o mesmo!!" });
             }
             try
             {
                 _vendedoresService.Update(vendedor);
                 return RedirectToAction(nameof(Index));
             }
-            catch (NotFoundExceptions)
+            catch (ApplicationException e)
             {
-                return NotFound();
-            }
-            catch (DbConcurrencyExceptions)
+                return RedirectToAction(nameof(Error), new { mensagem = e.Message });
+            }  
+        }
+
+        public IActionResult Error(string mensagem)
+        {
+            var viewModel = new ErrorViewModel
             {
-                return BadRequest();
-            }
+                Mensagem = mensagem,
+                RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
+            };
+            return View(viewModel);
         }
 
     }
