@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using LaGrife.Models.Entities;
 using LaGrife.Services;
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +25,16 @@ var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
 {
+    var ptBR = new CultureInfo("pt-BR");
+    var localizacao = new RequestLocalizationOptions
+    {
+        DefaultRequestCulture = new RequestCulture(ptBR),
+        SupportedCultures = new List<CultureInfo> { ptBR },
+        SupportedUICultures = new List<CultureInfo> { ptBR }
+    };
+
+    app.UseRequestLocalization(localizacao);
+    
     var services = scope.ServiceProvider;
     try
     {

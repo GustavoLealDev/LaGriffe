@@ -1,10 +1,15 @@
-﻿namespace LaGrife.Models.Entities
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace LaGrife.Models.Entities
 {
     public class Vendedor
     {
         public int Id { get; set; }
         public string Nome { get; set; }
+        [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
+        [Display(Name = "Data de Aniversário")]
+        [DataType(DataType.Date)]
         public DateTime Aniversario { get; set; }
         public Loja Loja { get; set; }
         public int LojaId { get; set; }
