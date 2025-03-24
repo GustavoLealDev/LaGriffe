@@ -5,11 +5,16 @@ namespace LaGrife.Models.Entities
     public class Vendedor
     {
         public int Id { get; set; }
+        [Required(ErrorMessage = "O nome é obrigatorio!!")]
+        [StringLength(60, MinimumLength =4, ErrorMessage = "Erro ao inserir nome! Tente novamente")]
         public string Nome { get; set; }
         [DataType(DataType.EmailAddress)]
+        [EmailAddress(ErrorMessage ="Entre com email válido")]
+        [Required(ErrorMessage = "O Email é obrigatorio!!")]
         public string Email { get; set; }
         [Display(Name = "Data de Aniversário")]
         [DataType(DataType.Date)]
+        [Required(ErrorMessage = "A data de aniversário é obrigatorio!!")]
         public DateTime Aniversario { get; set; }
         public Loja Loja { get; set; }
         public int LojaId { get; set; }

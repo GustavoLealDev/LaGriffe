@@ -1,4 +1,4 @@
-﻿@model LaGrife.Models.ViewModels.VendedorFormViewModel
+﻿@model LaGrife.Models.ViewModels.VendedorViewModel
 
 @{
     ViewData["Title"] = "Cadastrar vendedor";
@@ -12,23 +12,23 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group mb-3">
-                <label asp-for="vendedor.Nome" class="form-label fw-bold"></label>
-                <input asp-for="vendedor.Nome" class="form-control" placeholder="Digite o nome do vendedor" />
-                <span asp-validation-for="vendedor.Nome" class="text-danger"></span>
+                <label asp-for="Vendedor.Nome" class="form-label fw-bold"></label>
+                <input asp-for="Vendedor.Nome" class="form-control" placeholder="Digite o nome do vendedor" />
+                <span asp-validation-for="Vendedor.Nome" class="text-danger"></span>
             </div>
             <div class="form-group mb-3">
-                <label asp-for="vendedor.Email" class="form-label fw-bold"></label>
-                <input asp-for="vendedor.Email" class="form-control" placeholder="Digite o e-mail do vendedor" />
-                <span asp-validation-for="vendedor.Email" class="text-danger"></span>
+                <label asp-for="Vendedor.Email" class="form-label fw-bold"></label>
+                <input asp-for="Vendedor.Email" class="form-control" placeholder="Digite o e-mail do vendedor" />
+                <span asp-validation-for="Vendedor.Email" class="text-danger"></span>
             </div>
             <div class="form-group mb-3">
-                <label asp-for="vendedor.Aniversario" class="form-label fw-bold"></label>
-                <input asp-for="vendedor.Aniversario" type="date" class="form-control" />
-                <span asp-validation-for="vendedor.Aniversario" class="text-danger"></span>
+                <label asp-for="Vendedor.Aniversario" class="form-label fw-bold"></label>
+                <input asp-for="Vendedor.Aniversario" type="date" class="form-control" />
+                <span asp-validation-for="Vendedor.Aniversario" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="vendedor.LojaId" class="control-label"></label>
-                <select asp-for="vendedor.LojaId" asp-items="@(new SelectList(Model.Lojas,"Id","Local"))" class="form-control"></select>
+                <label asp-for="Vendedor.LojaId" class="control-label"></label>
+                <select asp-for="Vendedor.LojaId" asp-items="@(new SelectList(Model.Lojas,"Id","Local"))" class="form-control"></select>
             </div>
 
             <div class="form-group text-center">
@@ -38,3 +38,9 @@
         </form>
     </div>
 </div>
+
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

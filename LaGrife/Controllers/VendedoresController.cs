@@ -27,7 +27,7 @@ namespace LaGrife.Controllers
         public IActionResult Create()
         {
             var lojas = _lojasService.FindAll();
-            var viewModel = new VendedorFormViewModel { Lojas = lojas };
+            var viewModel = new VendedorViewModel { Lojas = lojas };
             return View(viewModel);
         }
 
@@ -35,6 +35,10 @@ namespace LaGrife.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(Vendedor vendedor)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(vendedor);
+            }
             _vendedoresService.Insert(vendedor);
             return RedirectToAction(nameof(Index));
         }
@@ -88,14 +92,20 @@ namespace LaGrife.Controllers
             }
 
             List<Loja> Lojas = _lojasService.FindAll();
-            VendedorFormViewModel viewModel = new VendedorFormViewModel { vendedor = obj, Lojas = Lojas };
+            VendedorViewModel viewModel = new VendedorViewModel { Vendedor = obj, Lojas = Lojas };
             return View(viewModel);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Edit(int id, Vendedor vendedor)
         {
-            if(id != vendedor.Id)
+            if (!ModelState.IsValid)
+            {
+                var lojas = _lojasService.FindAll();
+                var viewModel = new VendedorViewModel { Vendedor = vendedor, Lojas = lojas };
+                return View(viewModel);
+            }
+            if (id != vendedor.Id)
             {
                 return RedirectToAction(nameof(Error), new { mensagem = " O do vendedor não é o mesmo!!" });
             }
