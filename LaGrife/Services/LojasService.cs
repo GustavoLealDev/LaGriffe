@@ -1,4 +1,5 @@
 ﻿using LaGrife.Models.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace LaGrife.Services
 {
@@ -11,9 +12,9 @@ namespace LaGrife.Services
             _context = context;
         }
 
-        public List<Loja> FindAll()
+        public async Task<List<Loja>> FindAllAsync()
         {
-            return _context.Loja.OrderBy(x => x.Local).ToList();
+            return await _context.Loja.OrderBy(x => x.Local).ToListAsync();
         }
     }
 }

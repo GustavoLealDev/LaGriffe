@@ -1,10 +1,15 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Threading.Tasks;
+using LaGrife.Models.ViewModels;
+using Microsoft.AspNetCore.Mvc;
+using LaGrife.Models;
+using LaGrife.Models.ViewModels;
 using LaGrife.Services;
 using LaGrife.Models.Entities;
 using System.Data;
-using LaGrife.Services.Exceptions;
-using LaGrife.Models.ViewModels;
-using System.Diagnostics;
 
 namespace LaGrife.Controllers
 {
@@ -18,117 +23,131 @@ namespace LaGrife.Controllers
             _lojasService = lojasService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var list = _vendedoresService.FindAll();
+            var list = await _vendedoresService.FindAllAsync();
             return View(list);
         }
 
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            var lojas = _lojasService.FindAll();
-            var viewModel = new VendedorViewModel { Lojas = lojas };
+            var lojas = await _lojasService.FindAllAsync();
+            var viewModel = new VendedorFormViewModel { Lojas = lojas };
             return View(viewModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Vendedor vendedor)
+        public async Task<IActionResult> Create(Vendedor vendedor)
         {
             if (!ModelState.IsValid)
             {
-                return View(vendedor);
+                var lojas = await _lojasService.FindAllAsync();
+                var viewModel = new VendedorFormViewModel { Vendedores = vendedor, Lojas = lojas };
+                return View(viewModel);
             }
-            _vendedoresService.Insert(vendedor);
+            await _vendedoresService.InsertAsync(vendedor);
             return RedirectToAction(nameof(Index));
         }
 
-        public IActionResult Delete(int? id)
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
-                return RedirectToAction(nameof(Error), new { mensagem = "Digite um ID valido!!"});
+                return RedirectToAction(nameof(Error), new { message = "Id not provided" });
             }
-            var obj = _vendedoresService.FindById(id.Value);
+
+            var obj = await _vendedoresService.FindByIdAsync(id.Value);
             if (obj == null)
             {
-                return RedirectToAction(nameof(Error), new { mensagem = "ID não encontrado!!" });
+                return RedirectToAction(nameof(Error), new { message = "Id not found" });
             }
+
             return View(obj);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            _vendedoresService.Remove(id);
-            return RedirectToAction(nameof(Index));
+            try
+            {
+                await _vendedoresService.RemoveAsync(id);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (DBConcurrencyException e)
+            {
+                return RedirectToAction(nameof(Error), new { message = e.Message });
+            }
         }
 
-        public IActionResult Details(int? id)
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
-                return RedirectToAction(nameof(Error), new { mensagem = "Digite um ID valido!!" });
+                return RedirectToAction(nameof(Error), new { message = "Id not provided" });
             }
-            var obj = _vendedoresService.FindById(id.Value);
+
+            var obj = await _vendedoresService.FindByIdAsync(id.Value);
             if (obj == null)
             {
-                return RedirectToAction(nameof(Error), new { mensagem = "ID não encontrado!!" });
+                return RedirectToAction(nameof(Error), new { message = "Id not found" });
             }
+
             return View(obj);
         }
 
-        public IActionResult Edit(int? id)
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
-                return RedirectToAction(nameof(Error), new { mensagem = "Digite um ID valido!!" });
-            }
-            var obj = _vendedoresService.FindById(id.Value);
-            if (obj == null)
-            {
-                return RedirectToAction(nameof(Error), new { mensagem = "ID não encontrado!!" });
+                return RedirectToAction(nameof(Error), new { message = "Id not provided" });
             }
 
-            List<Loja> Lojas = _lojasService.FindAll();
-            VendedorViewModel viewModel = new VendedorViewModel { Vendedor = obj, Lojas = Lojas };
+            var obj = await _vendedoresService.FindByIdAsync(id.Value);
+            if (obj == null)
+            {
+                return RedirectToAction(nameof(Error), new { message = "Id not found" });
+            }
+
+            List<Loja> lojas = await _lojasService.FindAllAsync();
+            VendedorFormViewModel viewModel = new VendedorFormViewModel { Vendedores = obj, Lojas = lojas };
             return View(viewModel);
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, Vendedor vendedor)
+        public async Task<IActionResult> Edit(int id, Vendedor vendedor)
         {
             if (!ModelState.IsValid)
             {
-                var lojas = _lojasService.FindAll();
-                var viewModel = new VendedorViewModel { Vendedor = vendedor, Lojas = lojas };
+                var lojas = await _lojasService.FindAllAsync();
+                var viewModel = new VendedorFormViewModel { Vendedores = vendedor, Lojas = lojas};
                 return View(viewModel);
             }
             if (id != vendedor.Id)
             {
-                return RedirectToAction(nameof(Error), new { mensagem = " O do vendedor não é o mesmo!!" });
+                return RedirectToAction(nameof(Error), new { message = "Id mismatch" });
             }
             try
             {
-                _vendedoresService.Update(vendedor);
+                await _vendedoresService.UpdateAsync(vendedor);
                 return RedirectToAction(nameof(Index));
             }
             catch (ApplicationException e)
             {
-                return RedirectToAction(nameof(Error), new { mensagem = e.Message });
-            }  
+                return RedirectToAction(nameof(Error), new { message = e.Message });
+            }
         }
 
-        public IActionResult Error(string mensagem)
+        public IActionResult Error(string message)
         {
             var viewModel = new ErrorViewModel
             {
-                Mensagem = mensagem,
+                Mensagem = message,
                 RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
             };
             return View(viewModel);
         }
-
     }
 }
