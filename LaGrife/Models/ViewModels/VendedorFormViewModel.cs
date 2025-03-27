@@ -6,7 +6,7 @@ namespace LaGrife.Models.ViewModels
 {
     public class VendedorFormViewModel
     {
-        public Vendedor Vendedores { get; set; }
+        public Vendedor Vendedor { get; set; }
         public ICollection<Loja> Lojas { get; set; }
     }
 }

@@ -2,14 +2,12 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
-using LaGrife.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using LaGrife.Models;
+using LaGrife.Models.Entities;
 using LaGrife.Models.ViewModels;
 using LaGrife.Services;
-using LaGrife.Models.Entities;
-using System.Data;
+using LaGrife.Services.Exceptions;
 
 namespace LaGrife.Controllers
 {
@@ -40,12 +38,6 @@ namespace LaGrife.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Vendedor vendedor)
         {
-            if (!ModelState.IsValid)
-            {
-                var lojas = await _lojasService.FindAllAsync();
-                var viewModel = new VendedorFormViewModel { Vendedores = vendedor, Lojas = lojas };
-                return View(viewModel);
-            }
             await _vendedoresService.InsertAsync(vendedor);
             return RedirectToAction(nameof(Index));
         }
@@ -54,13 +46,13 @@ namespace LaGrife.Controllers
         {
             if (id == null)
             {
-                return RedirectToAction(nameof(Error), new { message = "Id not provided" });
+                return RedirectToAction(nameof(Error), new { message = "ID não fornecido" });
             }
 
             var obj = await _vendedoresService.FindByIdAsync(id.Value);
             if (obj == null)
             {
-                return RedirectToAction(nameof(Error), new { message = "Id not found" });
+                return RedirectToAction(nameof(Error), new { message = "ID não encontrado" });
             }
 
             return View(obj);
@@ -75,7 +67,7 @@ namespace LaGrife.Controllers
                 await _vendedoresService.RemoveAsync(id);
                 return RedirectToAction(nameof(Index));
             }
-            catch (DBConcurrencyException e)
+            catch (DbConcurrencyExceptions e)
             {
                 return RedirectToAction(nameof(Error), new { message = e.Message });
             }
@@ -85,13 +77,13 @@ namespace LaGrife.Controllers
         {
             if (id == null)
             {
-                return RedirectToAction(nameof(Error), new { message = "Id not provided" });
+                return RedirectToAction(nameof(Error), new { message = "ID não fornecido" });
             }
 
             var obj = await _vendedoresService.FindByIdAsync(id.Value);
             if (obj == null)
             {
-                return RedirectToAction(nameof(Error), new { message = "Id not found" });
+                return RedirectToAction(nameof(Error), new { message = "ID não encontrado" });
             }
 
             return View(obj);
@@ -101,17 +93,17 @@ namespace LaGrife.Controllers
         {
             if (id == null)
             {
-                return RedirectToAction(nameof(Error), new { message = "Id not provided" });
+                return RedirectToAction(nameof(Error), new { message = "ID não fornecido" });
             }
 
             var obj = await _vendedoresService.FindByIdAsync(id.Value);
             if (obj == null)
             {
-                return RedirectToAction(nameof(Error), new { message = "Id not found" });
+                return RedirectToAction(nameof(Error), new { message = "ID não encontrado" });
             }
 
             List<Loja> lojas = await _lojasService.FindAllAsync();
-            VendedorFormViewModel viewModel = new VendedorFormViewModel { Vendedores = obj, Lojas = lojas };
+            VendedorFormViewModel viewModel = new VendedorFormViewModel { Vendedor = obj, Lojas = lojas };
             return View(viewModel);
         }
 
@@ -119,15 +111,9 @@ namespace LaGrife.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Vendedor vendedor)
         {
-            if (!ModelState.IsValid)
-            {
-                var lojas = await _lojasService.FindAllAsync();
-                var viewModel = new VendedorFormViewModel { Vendedores = vendedor, Lojas = lojas};
-                return View(viewModel);
-            }
             if (id != vendedor.Id)
             {
-                return RedirectToAction(nameof(Error), new { message = "Id mismatch" });
+                return RedirectToAction(nameof(Error), new { message = "ID não encontrado" });
             }
             try
             {
