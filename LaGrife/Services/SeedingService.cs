@@ -22,13 +22,13 @@ namespace LaGrife.Services
 
             Loja loja1 = new Loja(1, "Av. Dr. Eugênio Borges, 1737 - Arsenal, São Gonçalo");
 
-            Vendedor s1 = new Vendedor(1, "Bob Marley", "bobM@gmail.com", new DateTime(1998, 4, 21));
-            Vendedor s2 = new Vendedor(2, "Maria Thereza", "maria12The@gmail.com", new DateTime(1979, 12, 31));
-            Vendedor s3 = new Vendedor(3, "Marco Alex", "Malex@gmail.com", new DateTime(1988, 1, 15));
-            Vendedor s4 = new Vendedor(4, "Maria Martha", "martha13@gmail.com", new DateTime(1993, 11, 30));
-            Vendedor s5 = new Vendedor(5, "Marck Donald", "MarkGray@gmail.com", new DateTime(2000, 1, 9));
-            Vendedor s6 = new Vendedor(6, "Gustavo Lima", "GustavoL@hotmail.com", new DateTime(1997, 3, 4));
-            Vendedor s7 = new Vendedor(1, "Ricardo Torres", "RicardoT@gmail.com", new DateTime(1998, 4, 21));
+            Vendedor s1 = new Vendedor(1, "Bob Marley", "bobM@gmail.com", new DateTime(1998, 4, 21), loja1);
+            Vendedor s2 = new Vendedor(2, "Maria Thereza", "maria12The@gmail.com", new DateTime(1979, 12, 31), loja1);
+            Vendedor s3 = new Vendedor(3, "Marco Alex", "Malex@gmail.com", new DateTime(1988, 1, 15), loja1);
+            Vendedor s4 = new Vendedor(4, "Maria Martha", "martha13@gmail.com", new DateTime(1993, 11, 30), loja1);
+            Vendedor s5 = new Vendedor(5, "Marck Donald", "MarkGray@gmail.com", new DateTime(2000, 1, 9), loja1);
+            Vendedor s6 = new Vendedor(6, "Gustavo Lima", "GustavoL@hotmail.com", new DateTime(1997, 3, 4), loja1);
+            Vendedor s7 = new Vendedor(1, "Ricardo Torres", "RicardoT@gmail.com", new DateTime(1998, 4, 21), loja1);
 
             Venda v1 = new Venda(1, new DateTime(2025, 02, 14), 425.00, VendaStatus.Pendente, s7);
             Venda v2 = new Venda(1, new DateTime(2025, 02, 14), 225.00, VendaStatus.Comprado, s7);

@@ -1,7 +1,66 @@
-﻿
+﻿@using LaGrife.Models.Entities
+@model IEnumerable<IGrouping<Loja, Venda>>
+
 @{
-    ViewData["Title"] = "GroupSearch";
+    ViewData["Title"] = "Busca Agrupada";
+    DateTime minDate = DateTime.Parse(ViewData["minDate"] as string);
+    DateTime maxDate = DateTime.Parse(ViewData["maxDate"] as string);
 }
 
-<h1>Busca Agrupada</h1>
+<h1 class="text-center mb-4">Busca Agrupada</h1>
 
+<div class="row justify-content-center mb-4">
+    <div class="col-md-8">
+        <form class="card p-4 shadow-sm" role="search">
+            <div class="row">
+                <div class="col-md-5 mb-3">
+                    <label for="minDate" class="form-label fw-bold">Data Inicial</label>
+                    <input type="date" class="form-control" name="minDate" value='@ViewData["minDate"]' />
+                </div>
+                <div class="col-md-5 mb-3">
+                    <label for="maxDate" class="form-label fw-bold">Data Final</label>
+                    <input type="date" class="form-control" name="maxDate" value='@ViewData["maxDate"]' />
+                </div>
+                <div class="col-md-2 d-flex align-items-end mb-3">
+                    <button type="submit" class="btn btn-primary w-100">Filtrar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="card shadow-sm">
+    <div class="card-header bg-primary text-white">
+        <h3 class="card-title mb-0">Total geral de vendas = @Model.Sum(group => group.Sum(v => v.Valor)).ToString("F2")</h3>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead class="table-light">
+                    <tr>
+                        <th>Loja</th>
+                        <th>Data</th>
+                        <th>Vendedor</th>
+                        <th>Valor</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var lojaGroup in Model)
+                    {
+                        @foreach (var item in lojaGroup)
+                        {
+                            <tr>
+                                <td>@lojaGroup.Key.Local</td>
+                                <td>@Html.DisplayFor(modelItem => item.Date)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Vendedor.Nome)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Valor)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Status)</td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

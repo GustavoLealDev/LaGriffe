@@ -24,12 +24,13 @@ namespace LaGrife.Models.Entities
         {
         }
 
-        public Vendedor(int id, string nome, string email, DateTime aniversario)
+        public Vendedor(int id, string nome, string email, DateTime aniversario, Loja loja)
         {
             Id = id;
             Nome = nome;
             Email = email;
             Aniversario = aniversario;
+            Loja = loja;
         }
         public void AddVendas(Venda vendas)
         {
