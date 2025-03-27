@@ -1,7 +1,61 @@
-﻿
+﻿@model IEnumerable<LaGrife.Models.Entities.Venda>
 @{
     ViewData["Title"] = "Search";
 }
 
-<h1>Busca Simples</h1>
+<h1 class="text-center mb-4">Busca Simples</h1>
 
+<div class="row justify-content-center mb-4">
+    <div class="col-md-8">
+        <form class="card p-4 shadow-sm" role="search">
+            <div class="row">
+                <div class="col-md-5 mb-3">
+                    <label for="minDate" class="form-label fw-bold">Data Inicial</label>
+                    <input type="date" class="form-control" name="minDate" value=@ViewData["minDate"] />
+                </div>
+                <div class="col-md-5 mb-3">
+                    <label for="maxDate" class="form-label fw-bold">Data Final</label>
+                    <input type="date" class="form-control" name="maxDate" value=@ViewData["maxDate"] />
+                </div>
+                <div class="col-md-2 d-flex align-items-end mb-3">
+                    <button type="submit" class="btn btn-primary w-100">Filtrar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="card shadow-sm">
+    <div class="card-header bg-primary text-white">
+        <h3 class="card-title mb-0">Total de vendas = @Model.Sum(obj => obj.Valor).ToString("F2")</h3>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead class="table-light">
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Id)</th>
+                        <th>@Html.DisplayNameFor(model => model.Date)</th>
+                        <th>@Html.DisplayNameFor(model => model.Vendedor)</th>
+                        <th>@Html.DisplayNameFor(model => model.Vendedor.Loja)</th>
+                        <th>@Html.DisplayNameFor(model => model.Valor)</th>
+                        <th>@Html.DisplayNameFor(model => model.Status)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => item.Id)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Date)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Vendedor.Nome)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Vendedor.Loja.Local)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Valor)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Status)</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -39,7 +39,7 @@ namespace LaGrife.Migrations
                     b.ToTable("Loja");
                 });
 
-            modelBuilder.Entity("LaGrife.Models.Entities.Vendas", b =>
+            modelBuilder.Entity("LaGrife.Models.Entities.Venda", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -86,7 +86,8 @@ namespace LaGrife.Migrations
 
                     b.Property<string>("Nome")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(60)
+                        .HasColumnType("varchar(60)");
 
                     b.HasKey("Id");
 
@@ -95,7 +96,7 @@ namespace LaGrife.Migrations
                     b.ToTable("Vendedor");
                 });
 
-            modelBuilder.Entity("LaGrife.Models.Entities.Vendas", b =>
+            modelBuilder.Entity("LaGrife.Models.Entities.Venda", b =>
                 {
                     b.HasOne("LaGrife.Models.Entities.Vendedor", "Vendedor")
                         .WithMany("Vendas")
