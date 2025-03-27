@@ -2,7 +2,7 @@
 
 namespace LaGrife.Models.Entities
 {
-    public class Vendas
+    public class Venda
     {
         public int Id { get; set; }
         public DateTime Date { get; set; }
@@ -10,11 +10,11 @@ namespace LaGrife.Models.Entities
         public VendaStatus Status { get; set; }
         public Vendedor Vendedor { get; set; }
 
-        public Vendas()
+        public Venda()
         {
         }
 
-        public Vendas(int id, DateTime date, double valor, VendaStatus status, Vendedor vendedor)
+        public Venda(int id, DateTime date, double valor, VendaStatus status, Vendedor vendedor)
         {
             Id = id;
             Date = date;

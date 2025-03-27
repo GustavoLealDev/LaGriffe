@@ -13,7 +13,7 @@ namespace LaGrife.Models.Entities
         {
         }
         public DbSet<Loja> Loja { get; set; } = default!;
-        public DbSet<Vendas> Vendas { get; set; } = default!;
+        public DbSet<Venda> Vendas { get; set; } = default!;
         public DbSet<Vendedor> Vendedor { get; set; } = default!;
     }
 }

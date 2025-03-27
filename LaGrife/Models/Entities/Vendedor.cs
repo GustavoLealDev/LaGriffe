@@ -18,7 +18,7 @@ namespace LaGrife.Models.Entities
         public DateTime Aniversario { get; set; }
         public Loja Loja { get; set; }
         public int LojaId { get; set; }
-        public ICollection<Vendas> Vendas { get; set; } = new List<Vendas>();
+        public ICollection<Venda> Vendas { get; set; } = new List<Venda>();
 
         public Vendedor()
         {
@@ -31,12 +31,12 @@ namespace LaGrife.Models.Entities
             Email = email;
             Aniversario = aniversario;
         }
-        public void AddVendas(Vendas vendas)
+        public void AddVendas(Venda vendas)
         {
             Vendas.Add(vendas);
         }
 
-        public void RemoveVendas(Vendas vendas)
+        public void RemoveVendas(Venda vendas)
         {
             Vendas.Remove(vendas);
         }
