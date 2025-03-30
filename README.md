@@ -12,3 +12,8 @@ Sistema de gerenciamento de Lojas e Vendedores desenvolvido em C# com Entity Fra
 
 ### 🏪 Gestão de Lojas
 - **Cadastro Detalhado** - Registro de lojas com localização, tamanho e características
+
+### 💰 Módulo de Vendas & Desempenho
+- **Relatório Individual** - Detalhamento de vendas por vendedor (diário/semanal/mensal)
+  - Total de vendas brutas
+- **Ranking de Performance** - Comparativo entre vendedores com filtros temporais
