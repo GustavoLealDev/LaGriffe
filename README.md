@@ -20,6 +20,6 @@ Sistema de gerenciamento de Lojas e Vendedores desenvolvido em C# com Entity Fra
 
 ## 🛠️ Tecnologias
 - .NET 9.0
-- Entity Framework Core 8.03
+- Entity Framework Core 8.0.3
 - MySQL (ou LocalDB para desenvolvimento)
 - HTM, CSS e JavaScript
