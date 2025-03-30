@@ -1,4 +1,4 @@
-# LaGrife
+# LaGriffe
 Gerenciamento de Vendas | LaGriffe Multimarcas
 
 Sistema de gerenciamento de Lojas e Vendedores desenvolvido em C# com Entity Framework Core e arquitetura em camadas.
