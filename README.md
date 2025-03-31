@@ -32,4 +32,4 @@ Sistema de gerenciamento de Lojas e Vendedores desenvolvido em C# com Entity Fra
 
 ## ⚙️ Git Clone :
 
-git clone https://github.com/GustavoLealDev/LaGriffe.git
+https://github.com/GustavoLealDev/LaGriffe.git
