@@ -24,6 +24,10 @@ Sistema de gerenciamento de Lojas e Vendedores desenvolvido em C# com Entity Fra
 - MySQL (ou LocalDB para desenvolvimento)
 - HTM, CSS e JavaScript
 
+## 📦 Pré-requisitos
+- [.NET 9.0](https://dotnet.microsoft.com/download)
+
+
 ## ⚙️ Git Clone :
 
 git clone https://github.com/GustavoLealDev/LaGriffe.git
