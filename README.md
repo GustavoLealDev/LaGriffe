@@ -26,6 +26,8 @@ Sistema de gerenciamento de Lojas e Vendedores desenvolvido em C# com Entity Fra
 
 ## 📦 Pré-requisitos
 - [.NET 9.0](https://dotnet.microsoft.com/download)
+- [Visual Studio 2022](https://visualstudio.microsoft.com/)
+- [ MySQL Community Server](https://downloads.mysql.com/archives/community/)
 
 
 ## ⚙️ Git Clone :
